@@ -1,0 +1,20 @@
+[global]
+bin = "./a.out"
+timeout = 00:01:00
+
+[basic.foo]
+timeout = 00:00:10
+args = "-a --foo"
+code = 0
+stdin.value = "foo bar baz"
+stdin.end = "EOF"
+stdout.mode = "match"
+stdout.value = "foo\nbar\nbar\n"
+stderr.mode = "empty"
+
+[basic.bar]
+code = 4
+args = "--bar"
+stdout.mode = "empty"
+stderr.mode = "match"
+stderr.value = "Fatal: bar flag not recognized.*"
