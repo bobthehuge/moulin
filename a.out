@@ -1,0 +1,37 @@
+#!/bin/sh
+
+if [ "$#" -eq 0 ]; then
+    echo "hello, world!"
+    exit 0
+fi
+
+if [ "$#" -gt 3 ]; then
+    >&2 echo "$0: too much arguments"
+    exit 4
+fi
+
+for flag in "$@"; do
+    case "$flag" in
+        --foo)
+            echo foo
+            ;;
+        --bar)
+            echo bar
+            ;;
+        --baz)
+            echo baz
+            ;;
+        --dirty)
+            >&2 echo "this is a dirty error message but this is expected"
+            exit 1
+            ;;
+        --wait)
+            sleep 10
+            exit 0
+            ;;
+        *)
+            >&2 echo "$0: $flag flag not recognized (get good)"
+            exit 4
+            ;;
+    esac
+done
